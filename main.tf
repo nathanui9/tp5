@@ -14,7 +14,7 @@ data "aws_caller_identity" "current" {}
 data "aws_region" "current" {}
 
 # =========================
-# KMS - chiffrement du secret applicatif
+# KMS - chiffrement du secret
 # =========================
 resource "aws_kms_key" "ssm" {
   description             = "KMS key TP5 SecureString"
@@ -47,7 +47,7 @@ resource "aws_ssm_parameter" "api_token" {
 }
 
 # =========================
-# Packaging Lambda
+# Zipper Lambda
 # =========================
 data "archive_file" "lambda_zip" {
   type        = "zip"
@@ -81,7 +81,6 @@ resource "aws_iam_role_policy_attachment" "lambda_basic_logs" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
-# Least privilege : lecture uniquement sur /tp5/app/*
 data "aws_iam_policy_document" "ssm_read_path" {
   statement {
     sid    = "ReadOnlyTp5Path"
@@ -102,7 +101,7 @@ resource "aws_iam_role_policy" "ssm_read" {
 }
 
 # =========================
-# CloudWatch Logs - rétention courte pour le TP
+# CloudWatch Logs 
 # =========================
 resource "aws_cloudwatch_log_group" "lambda" {
   name              = "/aws/lambda/${local.name}-ssm-reader"
@@ -111,7 +110,7 @@ resource "aws_cloudwatch_log_group" "lambda" {
 }
 
 # =========================
-# Lambda - lecture sécurisée des paramètres
+# Lambda - lecture des paramètres
 # =========================
 resource "aws_lambda_function" "reader" {
   function_name = "${local.name}-ssm-reader"
