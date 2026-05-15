@@ -10,7 +10,6 @@ variable "project" {
 
 variable "name_suffix" {
   type        = string
-  description = "Suffixe unique pour distinguer les ressources (ex: groupe5)"
 }
 
 variable "db_host" {
@@ -18,9 +17,8 @@ variable "db_host" {
   default = "db.example.local"
 }
 
-variable "api_token_dummy" {
+variable "api_token" {
   type        = string
-  description = "Valeur de démonstration uniquement. Ne jamais mettre un vrai secret dans le code ou dans tfvars."
   sensitive   = true
 }
 
