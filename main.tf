@@ -41,7 +41,7 @@ resource "aws_ssm_parameter" "db_host" {
 resource "aws_ssm_parameter" "api_token" {
   name   = "${local.param_path}API_TOKEN"
   type   = "SecureString"
-  value  = var.api_token_dummy
+  value  = var.api_token
   key_id = aws_kms_key.ssm.arn
   tags   = local.tags
 }
